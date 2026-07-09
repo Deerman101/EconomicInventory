@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a6c8db7f1ee2a64987bb0242358f2a5, type: 3}
-  m_Name: GameConfig
+  m_Script: {fileID: 11500000, guid: 19fe6ae59c3c20d44a41741fb91bb609, type: 3}
+  m_Name: Iron
   m_EditorClassIdentifier: 
-  Width: 8
-  Height: 8
-  CellSize: 60
-  CellSpacing: 20
-  StartItems: 5
+  Type: 2
+  DisplayName: Iron
+  Icon: {fileID: 0}
+  Color: {r: 0, g: 0, b: 0, a: 1}

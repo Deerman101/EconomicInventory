@@ -9,7 +9,8 @@ public class ItemInstance
     public ItemShapeDefinition Shape;
 
     // какой ресурс производит
-    public ResourceType ResourceType;
+    //public ResourceType ResourceType;
+    public ResourceDefinition Resource;
 
     // поворот
     public RotationState Rotation;

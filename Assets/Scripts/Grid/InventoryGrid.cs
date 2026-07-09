@@ -48,10 +48,8 @@ public class InventoryGrid
     {
         List<Vector2Int> result = new();
 
-        foreach (var cell in item.Shape.Cells)
-        {
+        foreach (Vector2Int cell in ItemShapeMath.GetRotatedCells(item.Shape.Cells, item.Rotation))
             result.Add(anchor + cell);
-        }
 
         return result;
     }

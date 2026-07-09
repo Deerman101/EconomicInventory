@@ -12,57 +12,34 @@ public class GameBootstrap : MonoBehaviour
 
     [SerializeField] private SpawnArea spawnArea;
     [SerializeField] private ItemShapeDefinition[] shapes;
+    [SerializeField] private ResourceDefinition[] resources;
 
     private ItemFactory factory;
 
     public InventoryGrid Inventory { get; private set; }
+    public GameConfig Config => config;
 
 
     private void Start()
     {
         CreateGrid();
 
-        factory = new ItemFactory(shapes); // вот тут мб всё пойдёт по 3.14...
+        spawnArea.Configure(config);
+        gridView.Build(Inventory, config);
+
+        factory = new ItemFactory(shapes, resources);
 
         for (int i = 0; i < config.StartItems; i++)
-        {
-            ItemInstance item =
-                factory.CreateRandom();
-
-            spawnArea.Spawn(item);
-        }
-
-        gridView.Build(
-            Inventory,
-            config.CellSize
-        );
+            spawnArea.Spawn(factory.CreateRandom());
     }
 
 
     private void CreateGrid()
     {
-        Inventory = new InventoryGrid(
-            config.Width,
-            config.Height
-        );
-
+        Inventory = new InventoryGrid(config.Width,config.Height);
 
         GenerateTiles();
     }
-
-
-    //private void GenerateTiles()
-    //{
-    //    for (int x = 0; x < Inventory.Width; x++)
-    //    {
-    //        for (int y = 0; y < Inventory.Height; y++)
-    //        {
-    //            Inventory
-    //                .GetCell(x, y)
-    //                .TileType = TileType.Green;
-    //        }
-    //    }
-    //}
 
     private void GenerateTiles()
     {

@@ -10,7 +10,10 @@ public class GameConfig : ScriptableObject
     public int Height = 8;
 
     [Header("Visual")]
-    public float CellSize = 64f;
+    public float CellSize = 60f;
+    public float CellSpacing = 20f;
+
+    public float CellStep => CellSize + CellSpacing;
 
     [Header("Spawn")]
     public int StartItems = 5;

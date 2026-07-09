@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a6c8db7f1ee2a64987bb0242358f2a5, type: 3}
-  m_Name: GameConfig
+  m_Script: {fileID: 11500000, guid: 75b9a2da9fd9f694ab2cff5f401d52d8, type: 3}
+  m_Name: L
   m_EditorClassIdentifier: 
-  Width: 8
-  Height: 8
-  CellSize: 60
-  CellSpacing: 20
-  StartItems: 5
+  ShapeName: L
+  Cells:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
+  - {x: 0, y: 2}
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}
