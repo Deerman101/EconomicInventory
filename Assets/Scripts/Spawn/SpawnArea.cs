@@ -9,6 +9,7 @@ public class SpawnArea : MonoBehaviour
     [SerializeField] private float itemSpacing = 90f;
 
     private readonly List<ItemInstance> items = new();
+
     private GameConfig config;
 
     public void Configure(GameConfig gameConfig)
@@ -16,17 +17,21 @@ public class SpawnArea : MonoBehaviour
         config = gameConfig;
     }
 
-    public void Spawn(ItemInstance item)
+    public ItemView Spawn(ItemInstance item)
     {
         if (!items.Contains(item))
             items.Add(item);
 
         ItemView view = Instantiate(itemPrefab, parent);
+
         view.Configure(config);
         view.Bind(item);
 
         item.State = ItemState.Spawn;
+
         Relayout();
+
+        return view;
     }
 
     public void NotifyTaken(ItemInstance item)
@@ -37,12 +42,14 @@ public class SpawnArea : MonoBehaviour
     public void ReturnView(ItemView view)
     {
         ItemInstance item = view.Item;
+
         item.State = ItemState.Spawn;
 
         if (!items.Contains(item))
             items.Add(item);
 
         view.transform.SetParent(parent, false);
+
         Relayout();
     }
 
@@ -60,6 +67,7 @@ public class SpawnArea : MonoBehaviour
         }
 
         item.View.transform.SetParent(parent, false);
+
         Relayout();
     }
 
@@ -68,14 +76,18 @@ public class SpawnArea : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             ItemView view = items[i].View;
+
             if (view == null)
                 continue;
 
-            RectTransform rect = view.GetComponent<RectTransform>();
+            RectTransform rect =
+                view.GetComponent<RectTransform>();
+
             rect.pivot = Vector2.zero;
-            rect.anchorMin = new Vector2(0f, 0.5f);
-            rect.anchorMax = new Vector2(0f, 0.5f);
-            rect.anchoredPosition = new Vector2(i * itemSpacing, 0f);
+            rect.anchorMin = new Vector2(0, 0.5f);
+            rect.anchorMax = new Vector2(0, 0.5f);
+
+            rect.anchoredPosition = new Vector2(i * itemSpacing, 0);
         }
     }
 }

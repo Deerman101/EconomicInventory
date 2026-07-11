@@ -15,7 +15,7 @@ public class TileDefinition : ScriptableObject
 
     [Header("Production")]
     [Range(0f, 1f)]
-    public float ProductionMultiplier;
+    public float ProductionMultiplier; // на будущее
 
     [Range(0f, 10f)]
     public float ProductionDelay;

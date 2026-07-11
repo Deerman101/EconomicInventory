@@ -26,6 +26,7 @@ public class ItemInstance
     // отображение
     public ItemView View;
 
-    public int CellCount =>
-        Shape.Cells.Count;
+    public int CellCount => Shape.Cells.Count;
+
+    public float ProductionTimer;
 }

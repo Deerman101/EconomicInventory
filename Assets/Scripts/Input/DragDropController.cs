@@ -10,6 +10,7 @@ public class DragDropController : MonoBehaviour
     [SerializeField] private GridView gridView;
     [SerializeField] private GameBootstrap bootstrap;
     [SerializeField] private SpawnArea spawnArea;
+    [SerializeField] private ItemDestroyZone destroyZone;
 
     private ItemView draggedItem;
     private RectTransform draggedRect;
@@ -86,15 +87,18 @@ public class DragDropController : MonoBehaviour
     {
         Vector2 screen = Input.mousePosition;
 
-        if (TryResolveDropAnchor(screen, out Vector2Int anchor) &&
-            bootstrap.Inventory.CanPlace(draggedItem.Item, anchor))
+        if (destroyZone.IsInside(screen))
         {
+            DestroyItem();
+
+            ClearDrag();
+            return;
+        }
+
+        if (TryResolveDropAnchor(screen, out Vector2Int anchor) && bootstrap.Inventory.CanPlace(draggedItem.Item, anchor))
             PlaceOnGrid(anchor);
-        }
         else
-        {
             ReturnToSpawn();
-        }
 
         ClearDrag();
     }
@@ -137,6 +141,28 @@ public class DragDropController : MonoBehaviour
             bootstrap.Inventory.Remove(other);
             spawnArea.ReturnInstance(other);
         }
+    }
+
+    private void DestroyItem()
+    {
+        if (!destroyZone.CanDestroy())
+        {
+            ReturnToSpawn();
+            return;
+        }
+
+        destroyZone.PayCost();
+
+        ItemInstance item = draggedItem.Item;
+
+        if (item.State == ItemState.Inventory)
+            bootstrap.Inventory.Remove(item);
+
+        Destroy(draggedItem.gameObject);
+
+        ItemInstance newItem = bootstrap.CreateRandomItem();
+        ItemView view = spawnArea.Spawn(newItem);
+        view.ConfigureProduction(bootstrap.Inventory);
     }
 
     private void ReturnToSpawn()
