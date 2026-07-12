@@ -1,67 +1,179 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ArtifactShop : MonoBehaviour
 {
     public static ArtifactShop Instance { get; private set; }
 
-    public event Action<ArtifactDefinition> OnArtifactBought;
+    public event Action OnShopChanged;
 
-    [Header("Available artifacts")]
-    [SerializeField] private ArtifactDefinition[] artifacts;
+    [Header("Артефакты")]
+    [SerializeField] private List<ArtifactDefinition> artifacts;
+    [SerializeField] private Transform artifactParent;
+    [SerializeField] private float priceMultiplier = 1.2f;
 
-    private int currentIndex;
+    [Header("Цена предмета после покупки всех артов")]
+    [SerializeField] private int itemWheatCost;
+    [SerializeField] private int itemWoodCost;
+    [SerializeField] private int itemIronCost;
 
-    public ArtifactDefinition CurrentArtifact
-    {
-        get
-        {
-            if (currentIndex >= artifacts.Length)
-                return null;
+    [Header("Покупка предметов")]
+    [SerializeField] private SpawnArea spawnArea;
+    [SerializeField] private GameBootstrap bootstrap;
 
-            return artifacts[currentIndex];
-        }
-    }
+    private readonly List<ArtifactDefinition> availableArtifacts = new();
+    private readonly Dictionary<ArtifactDefinition, ArtifactPrice> artifactPrices = new();
+
+    private ArtifactDefinition currentArtifact;
+
+    public bool HasArtifacts => availableArtifacts.Count > 0;
+
+    public ArtifactDefinition CurrentArtifact => currentArtifact;
+
+    public int ItemWheatCost => itemWheatCost;
+    public int ItemWoodCost => itemWoodCost;
+    public int ItemIronCost => itemIronCost;
 
     private void Awake()
     {
         Instance = this;
+
+        availableArtifacts.AddRange(artifacts);
+
+        foreach (ArtifactDefinition artifact in availableArtifacts)
+        {
+            artifactPrices.Add(artifact,
+                new ArtifactPrice(
+                    artifact.WheatCost,
+                    artifact.WoodCost,
+                    artifact.IronCost
+                )
+            );
+        }
+
+        SelectRandomArtifact();
     }
 
-    public bool BuyCurrentArtifact()
+    public ArtifactPrice GetArtifactPrice(ArtifactDefinition artifact)
     {
-        ArtifactDefinition artifact = CurrentArtifact;
-
         if (artifact == null)
-            return false;
+            return null;
 
-        if (!CanBuy(artifact))
-            return false;
+        return artifactPrices[artifact];
+    }
 
-        Pay(artifact);
+    public void Buy()
+    {
+        if (HasArtifacts)
+            BuyArtifact();
+        else
+            BuyItem();
+    }
 
-        OnArtifactBought?.Invoke(artifact);
+    private void BuyArtifact()
+    {
+        if (currentArtifact == null)
+            return;
 
-        currentIndex++;
+        if (!CanBuy(currentArtifact))
+            return;
 
-        return true;
+        Pay(currentArtifact);
+        ActivateArtifact(currentArtifact);
+        availableArtifacts.Remove(currentArtifact);
+        IncreaseArtifactPrices();
+        SelectRandomArtifact();
+
+        OnShopChanged?.Invoke();
+    }
+
+    private void SelectRandomArtifact()
+    {
+        if (availableArtifacts.Count == 0)
+        {
+            currentArtifact = null;
+            return;
+        }
+
+        currentArtifact = availableArtifacts[UnityEngine.Random.Range(0, availableArtifacts.Count)];
+    }
+
+    private void ActivateArtifact(ArtifactDefinition artifact)
+    {
+        if (artifact.ArtifactPrefab == null)
+        {
+            Debug.LogError("Не назначен префаб артефакта: " + artifact.ArtifactName);
+
+            return;
+        }
+
+        GameObject obj = Instantiate(artifact.ArtifactPrefab, artifactParent);
+
+        obj.SetActive(true);
+    }
+
+    private void IncreaseArtifactPrices()
+    {
+        foreach (ArtifactDefinition artifact in availableArtifacts)
+            artifactPrices[artifact].Multiply(priceMultiplier);
+    }
+
+    private void BuyItem()
+    {
+        if (!CanBuyItem())
+            return;
+
+        PayItem();
+
+        ItemInstance item = bootstrap.CreateRandomItem();
+        ItemView view = spawnArea.Spawn(item);
+
+        view.ConfigureProduction(bootstrap.Inventory);
+
+        IncreaseItemPrice();
+
+        OnShopChanged?.Invoke();
+
+        Debug.Log("Покупка предмета прошла успешно");
     }
 
     private bool CanBuy(ArtifactDefinition artifact)
     {
-        ResourceStorage storage = ResourceStorage.Instance;
+        ArtifactPrice price = artifactPrices[artifact];
 
-        return storage.Wheat >= artifact.WheatCost && storage.Wood >= artifact.WoodCost && storage.Iron >= artifact.IronCost;
+        return ResourceStorage.Instance.Wheat >= price.Wheat &&
+            ResourceStorage.Instance.Wood >= price.Wood &&
+            ResourceStorage.Instance.Iron >= price.Iron;
     }
 
     private void Pay(ArtifactDefinition artifact)
     {
-        ResourceStorage storage = ResourceStorage.Instance;
+        ArtifactPrice price = artifactPrices[artifact];
 
-        storage.Remove(Enums.ResourceType.Wheat, artifact.WheatCost);
-        storage.Remove(Enums.ResourceType.Wood, artifact.WoodCost);
-        storage.Remove(Enums.ResourceType.Iron, artifact.IronCost);
+        ResourceStorage.Instance.Remove(Enums.ResourceType.Wheat, price.Wheat);
+        ResourceStorage.Instance.Remove(Enums.ResourceType.Wood, price.Wood);
+        ResourceStorage.Instance.Remove(Enums.ResourceType.Iron, price.Iron);
+    }
 
-        Debug.Log("Bought artifact: " + artifact.ArtifactName);
+    private bool CanBuyItem()
+    {
+        return ResourceStorage.Instance.Wheat >= itemWheatCost &&
+            ResourceStorage.Instance.Wood >= itemWoodCost &&
+            ResourceStorage.Instance.Iron >= itemIronCost;
+    }
+
+    private void PayItem()
+    {
+        ResourceStorage.Instance.Remove(Enums.ResourceType.Wheat, itemWheatCost);
+        ResourceStorage.Instance.Remove(Enums.ResourceType.Wood, itemWoodCost);
+        ResourceStorage.Instance.Remove(Enums.ResourceType.Iron, itemIronCost);
+    }
+
+    private void IncreaseItemPrice()
+    {
+        itemWheatCost = Mathf.RoundToInt(itemWheatCost * priceMultiplier);
+        itemWoodCost = Mathf.RoundToInt(itemWoodCost * priceMultiplier);
+        itemIronCost = Mathf.RoundToInt(itemIronCost * priceMultiplier);
     }
 }

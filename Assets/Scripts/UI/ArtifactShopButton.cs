@@ -7,6 +7,6 @@ public class ArtifactShopButton : MonoBehaviour
         if (ArtifactShop.Instance == null)
             return;
 
-        ArtifactShop.Instance.BuyCurrentArtifact();
+        ArtifactShop.Instance.Buy();
     }
 }

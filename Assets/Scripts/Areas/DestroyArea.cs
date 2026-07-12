@@ -1,22 +1,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-public class ItemDestroyZone : MonoBehaviour
+public class DestroyArea : MonoBehaviour
 {
     [Header("Цена удаления в ресах:")]
-    [SerializeField] private int wheatCost = 1;
+    [SerializeField] private int wheatCost = 10;
 
     public bool IsInside(Vector2 screenPosition)
     {
-        RectTransform rect =
-            GetComponent<RectTransform>();
+        RectTransform rect = GetComponent<RectTransform>();
 
-        return RectTransformUtility.RectangleContainsScreenPoint(
-            rect,
-            screenPosition,
-            null
-        );
+        return RectTransformUtility.RectangleContainsScreenPoint(rect, screenPosition, null);
     }
 
     public bool CanDestroy()

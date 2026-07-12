@@ -90,3 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 8890067195899708410, guid: a5dbd2240d115b64c973324f1672d0fc, type: 3}
   resourceIconPrefab: {fileID: 7157183356630277249, guid: cde2e643136a12848b31543874cf787e, type: 3}
+  currentResourceIcon: {fileID: 0}

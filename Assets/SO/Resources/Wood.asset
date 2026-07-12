@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   DisplayName: Wood
-  Icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  Icon: {fileID: -978869545, guid: b771da4b11dde0a409663e0000bf5781, type: 3}
   Color: {r: 0.3207547, g: 0.076370195, b: 0, a: 1}

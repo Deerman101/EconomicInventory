@@ -10,7 +10,7 @@ public class DragDropController : MonoBehaviour
     [SerializeField] private GridView gridView;
     [SerializeField] private GameBootstrap bootstrap;
     [SerializeField] private SpawnArea spawnArea;
-    [SerializeField] private ItemDestroyZone destroyZone;
+    [SerializeField] private DestroyArea destroyArea;
 
     private ItemView draggedItem;
     private RectTransform draggedRect;
@@ -87,7 +87,7 @@ public class DragDropController : MonoBehaviour
     {
         Vector2 screen = Input.mousePosition;
 
-        if (destroyZone.IsInside(screen))
+        if (destroyArea.IsInside(screen))
         {
             DestroyItem();
 
@@ -145,13 +145,13 @@ public class DragDropController : MonoBehaviour
 
     private void DestroyItem()
     {
-        if (!destroyZone.CanDestroy())
+        if (!destroyArea.CanDestroy())
         {
             ReturnToSpawn();
             return;
         }
 
-        destroyZone.PayCost();
+        destroyArea.PayCost();
 
         ItemInstance item = draggedItem.Item;
 

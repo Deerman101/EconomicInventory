@@ -15,6 +15,10 @@ public class ArtifactDefinition : ScriptableObject
     [Header("Visual")]
     public Sprite Icon;
 
+    [Header("Logic")]
+    public GameObject ArtifactPrefab;
+    //public ArtifactView ArtifactPrefab;
+
     [Header("Price")]
     public int WheatCost;
     public int WoodCost;

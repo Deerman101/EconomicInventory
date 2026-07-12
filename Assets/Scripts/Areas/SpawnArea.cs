@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnArea : MonoBehaviour
 {
     [SerializeField] private ItemView itemPrefab;
-    [SerializeField] private Transform parent;
+    [SerializeField] private Transform content;
     [SerializeField] private float itemSpacing = 90f;
 
     private readonly List<ItemInstance> items = new();
@@ -22,7 +22,7 @@ public class SpawnArea : MonoBehaviour
         if (!items.Contains(item))
             items.Add(item);
 
-        ItemView view = Instantiate(itemPrefab, parent);
+        ItemView view = Instantiate(itemPrefab, content);
 
         view.Configure(config);
         view.Bind(item);
@@ -42,13 +42,12 @@ public class SpawnArea : MonoBehaviour
     public void ReturnView(ItemView view)
     {
         ItemInstance item = view.Item;
-
         item.State = ItemState.Spawn;
 
         if (!items.Contains(item))
             items.Add(item);
 
-        view.transform.SetParent(parent, false);
+        view.transform.SetParent(content, false);
 
         Relayout();
     }
@@ -66,7 +65,7 @@ public class SpawnArea : MonoBehaviour
             return;
         }
 
-        item.View.transform.SetParent(parent, false);
+        item.View.transform.SetParent(content, false);
 
         Relayout();
     }
@@ -80,13 +79,11 @@ public class SpawnArea : MonoBehaviour
             if (view == null)
                 continue;
 
-            RectTransform rect =
-                view.GetComponent<RectTransform>();
+            RectTransform rect = view.GetComponent<RectTransform>();
 
             rect.pivot = Vector2.zero;
             rect.anchorMin = new Vector2(0, 0.5f);
             rect.anchorMax = new Vector2(0, 0.5f);
-
             rect.anchoredPosition = new Vector2(i * itemSpacing, 0);
         }
     }

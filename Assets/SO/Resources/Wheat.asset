@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   DisplayName: Wheat
-  Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Icon: {fileID: -1663239884, guid: b771da4b11dde0a409663e0000bf5781, type: 3}
   Color: {r: 0.735849, g: 0.6147032, b: 0, a: 1}
