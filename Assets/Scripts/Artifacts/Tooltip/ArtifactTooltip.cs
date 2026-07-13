@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class ArtifactTooltip : MonoBehaviour
 {
-    [Header("Tooltip")]
+    [Header("Ссылки тултипа")]
     [SerializeField] private GameObject tooltipPrefab;
+    [SerializeField] private Canvas canvas;
 
-    private GameObject currentTooltip;
+    [Header("Тесты")]
+    [SerializeField] private GameObject currentTooltip;
+
     private RectTransform tooltipRect;
-    private Canvas canvas;
-
-    private void Awake()
-    {
-        canvas = GetComponentInParent<Canvas>();
-    }
 
     private void Update()
     {

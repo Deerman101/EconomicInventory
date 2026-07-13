@@ -27,7 +27,15 @@ public class UniversalArtifactEffect : MonoBehaviour
 
     private int GetItemCount()
     {
-        return FindObjectsOfType<ItemView>().Length;
+        ItemView[] items = FindObjectsOfType<ItemView>();
+
+        int count = 0;
+
+        foreach (ItemView view in items)
+            if (view.Item != null && view.Item.State == ItemState.Inventory)
+                count++;
+
+        return count;
     }
 
     private void ProduceRandom()

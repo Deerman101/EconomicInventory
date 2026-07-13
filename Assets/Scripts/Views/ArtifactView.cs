@@ -1,29 +1,3 @@
-//using UnityEngine;
-//using UnityEngine.UI;
-
-
-//public class ArtifactView : MonoBehaviour
-//{
-//    [SerializeField] private Image icon;
-
-//    public ArtifactDefinition Artifact { get; private set; }
-
-
-//    public void Bind(ArtifactDefinition definition)
-//    {
-//        Artifact = definition;
-
-//        icon.sprite = definition.Icon;
-//    }
-
-
-//    public void Activate()
-//    {
-//        gameObject.SetActive(true);
-//    }
-//}
-
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -35,14 +9,12 @@ public class ArtifactView : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public static event Action OnArtifactExit;
 
     [SerializeField] private Image icon;
+    [SerializeField] private ArtifactDefinition artifact;
 
-    private ArtifactDefinition artifact;
-
-    public void Bind(ArtifactDefinition definition)
+    private void Awake()
     {
-        artifact = definition;
-
-        icon.sprite = definition.Icon;
+        if (artifact != null && icon != null)
+            icon.sprite = artifact.Icon;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -50,11 +22,7 @@ public class ArtifactView : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (artifact == null)
             return;
 
-
-        OnArtifactHover?.Invoke(
-            artifact,
-            Input.mousePosition
-        );
+        OnArtifactHover?.Invoke(artifact, Input.mousePosition);
     }
 
     public void OnPointerExit(PointerEventData eventData)

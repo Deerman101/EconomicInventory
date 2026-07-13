@@ -18,8 +18,8 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
     public ItemInstance Item => _item;
 
     [Header("Тесты")]
-    public ResourceIconView currentResourceIcon; // new animation :(
-    private InventoryGrid inventory; // new animation :(
+    public ResourceIconView currentResourceIcon; 
+    private InventoryGrid inventory; 
 
     private void Awake()
     {
@@ -85,7 +85,7 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
 
     public void ConfigureProduction(InventoryGrid grid)
     {
-        inventory = grid; // new animation :(
+        inventory = grid; 
 
         producer = gameObject.AddComponent<ItemProducer>();
 
@@ -106,7 +106,7 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
         DragDropController.Instance.BeginDrag(this);
     }
 
-    private float GetProductionSpeed()// new animation :(
+    private float GetProductionSpeed()
     {
         Vector2Int core = ItemShapeMath.RotateCell(_item.CoreCell, _item.Rotation);
 
@@ -118,7 +118,7 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
         return cell.Tile.ProductionDelay;
     }
 
-    private GridCell FindCell(Vector2Int position)// new animation :(
+    private GridCell FindCell(Vector2Int position)
     {
         if (inventory == null)
             return null;
@@ -126,7 +126,7 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
         return inventory.GetCell(position.x, position.y);
     }
 
-    private void StartIconAnimation(ItemInstance item)// new animation :(
+    private void StartIconAnimation(ItemInstance item)
     {
         if (item != _item)
             return;
@@ -140,7 +140,7 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
         currentResourceIcon.PlayProductionAnimation(GetProductionSpeed());
     }
 
-    private void StopIconAnimation(ItemInstance item)// new animation :(
+    private void StopIconAnimation(ItemInstance item)
     {
         if (item != _item)
             return;
@@ -151,7 +151,7 @@ public class ItemView : MonoBehaviour, IPointerDownHandler
         currentResourceIcon.StopAnimation();
     }
 
-    public Vector3 GetCorePopupPosition() // new попап :)
+    public Vector3 GetCorePopupPosition()
     {
         Vector2Int rotatedCore =
             ItemShapeMath.RotateCell(

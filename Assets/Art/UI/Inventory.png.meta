@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -128,11 +128,11 @@ TextureImporter:
         serializedVersion: 2
         x: 7
         y: 59
-        width: 97
+        width: 98
         height: 101
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 10, y: 12, z: 10, w: 12}
+      border: {x: 14, y: 14, z: 14, w: 14}
       outline: []
       physicsShape: []
       tessellationDetail: 0

@@ -88,7 +88,7 @@ public class InventoryGrid
                 cell.Occupant = null;
         }
 
-        InventoryEvents.OnItemRemoved?.Invoke(item); // new animations :(
+        InventoryEvents.OnItemRemoved?.Invoke(item); 
     }
 
     public void Place(ItemInstance item, Vector2Int anchor)
@@ -103,6 +103,6 @@ public class InventoryGrid
             _cells[pos.x, pos.y].Occupant = item;
         }
 
-        InventoryEvents.OnItemPlaced?.Invoke(item); // new animations :(
+        InventoryEvents.OnItemPlaced?.Invoke(item); 
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &444642163116024609
+--- !u!1001 &1561629069329134382
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,11 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1485075195053912316, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
       propertyPath: m_Name
-      value: All+1ArtifactPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 1485075195053912316, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: MyArtifactPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 5586813278146382883, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
       propertyPath: m_Pivot.x
@@ -96,88 +92,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6035263133194395273, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6035263133194395273, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8237370457167508271, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
       propertyPath: artifact
       value: 
-      objectReference: {fileID: 11400000, guid: ef371cc1a0850f34d94de9aa19a91031, type: 2}
-    - target: {fileID: 8237370457167508271, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-      propertyPath: definition
-      value: 
-      objectReference: {fileID: 11400000, guid: ef371cc1a0850f34d94de9aa19a91031, type: 2}
+      objectReference: {fileID: 11400000, guid: eaeaf2fb068f03f468836c37cb41d208, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1485075195053912316, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2283929365774975814}
-    - targetCorrespondingSourceObject: {fileID: 1485075195053912316, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1941453474028358798}
-    - targetCorrespondingSourceObject: {fileID: 1485075195053912316, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7754628599232406866}
+      addedObject: {fileID: 5845713769788310263}
   m_SourcePrefab: {fileID: 100100000, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
---- !u!1 &1348726609080718301 stripped
+--- !u!1 &85578670066353106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1485075195053912316, guid: 6acb5cd76d6cdf8438dbc1137a99886a, type: 3}
-  m_PrefabInstance: {fileID: 444642163116024609}
+  m_PrefabInstance: {fileID: 1561629069329134382}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2283929365774975814
+--- !u!114 &5845713769788310263
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348726609080718301}
+  m_GameObject: {fileID: 85578670066353106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3efaa18c71c9a04cb7d843641611021, type: 3}
+  m_Script: {fileID: 11500000, guid: 345641c699e8d6744ae862bf0fb93507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!222 &1941453474028358798
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348726609080718301}
-  m_CullTransparentMesh: 1
---- !u!114 &7754628599232406866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348726609080718301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1

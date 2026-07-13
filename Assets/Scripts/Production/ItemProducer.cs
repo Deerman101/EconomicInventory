@@ -6,11 +6,9 @@ using UnityEngine;
 
 public class ItemProducer : MonoBehaviour
 {
-    //public static event Action<ItemInstance, int> OnItemProduced; // поытка в арты 1
-    public static event Func<ItemInstance, int, int> OnProductionCalculate; // поытка в арты 1
+    public static event Func<ItemInstance, int, int> OnProductionCalculate;
 
     private InventoryGrid inventory;
-
     private ItemView view;
 
     public void Configure(InventoryGrid grid)
@@ -54,17 +52,15 @@ public class ItemProducer : MonoBehaviour
         }
     }
 
-    //private void Produce(ItemInstance item)
-    //{
-    //    ResourceStorage.Instance.Add(item.Resource.Type, 1);
-
-    //    SpawnPopup(item);
-    //}
-
     private void Produce(ItemInstance item)
     {
-        int amount = 1;
+        GridCell productionCell = GetProductionCell(item);
 
+        if (productionCell != null && productionCell.Tile.Type == TileType.Red)
+            if (FindObjectOfType<MyArtifactEffect>() == null)
+                return;
+
+        int amount = 1;
 
         if (OnProductionCalculate != null)
         {
@@ -75,12 +71,10 @@ public class ItemProducer : MonoBehaviour
             }
         }
 
-
         ResourceStorage.Instance.Add(
             item.Resource.Type,
             amount
         );
-
 
         SpawnPopup(item, amount);
     }
@@ -93,9 +87,7 @@ public class ItemProducer : MonoBehaviour
         return inventory.GetCell(gridPos.x, gridPos.y);
     }
 
-    //private void SpawnPopup(ItemInstance item) => ResourcePopupSpawner.Instance.Spawn(view.GetCorePopupPosition(), item.Resource, 1);
-
-    private void SpawnPopup(ItemInstance item, int amount)// поытка в арты 1
+    private void SpawnPopup(ItemInstance item, int amount)
     {
         ResourcePopupSpawner.Instance.Spawn(view.GetCorePopupPosition(), item.Resource, amount);
     }
