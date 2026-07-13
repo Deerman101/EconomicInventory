@@ -21,6 +21,6 @@ MonoBehaviour:
     \u0432 2 \u0440\u0430\u0437\u0430."
   Icon: {fileID: -1960920164, guid: f15b9f1ba503b1749a4f6b535b3c3f0f, type: 3}
   ArtifactPrefab: {fileID: 85578670066353106, guid: ba2113d25fef89c4aa32289a515ec495, type: 3}
-  WheatCost: 0
+  WheatCost: 666
   WoodCost: 0
   IronCost: 0

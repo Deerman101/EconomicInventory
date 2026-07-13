@@ -20,6 +20,6 @@ MonoBehaviour:
     \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u044B\u0439 \u0440\u0435\u0441\u0443\u0440\u0441."
   Icon: {fileID: -1487104858, guid: f15b9f1ba503b1749a4f6b535b3c3f0f, type: 3}
   ArtifactPrefab: {fileID: 1348726609080718301, guid: a6c0781e421b61d40995db4dde22c17d, type: 3}
-  WheatCost: 1
-  WoodCost: 1
-  IronCost: 1
+  WheatCost: 10
+  WoodCost: 10
+  IronCost: 10
